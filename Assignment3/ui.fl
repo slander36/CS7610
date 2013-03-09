@@ -1,0 +1,333 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0302 
+header_name {.h} 
+code_name {.cxx}
+class UserInterface {open
+} {
+  Function {UserInterface()} {open
+  } {
+    Fl_Window Mywindow {
+      label {FLTK Draw} open
+      xywh {2246 173 497 432} type Single color 51 visible
+    } {
+      Fl_Box viewing {
+        label label
+        xywh {8 30 480 320}
+        code0 {\#include "MyWindow.h"}
+        class MyWindow
+      }
+      Fl_Check_Button Line {
+        label Line
+        callback {viewing->drawLine();
+Line->setonly();}
+        xywh {10 360 60 20} type Radio down_box DOWN_BOX
+      }
+      Fl_Check_Button Circle {
+        label circle
+        callback {viewing->drawCircle();
+Circle->setonly();}
+        xywh {150 360 60 20} type Radio down_box DOWN_BOX
+      }
+      Fl_Button {} {
+        label {Clear Screen}
+        callback {viewing->clearallvariables();
+Line->clear();
+Poly->clear();
+Circle->clear();}
+        xywh {10 390 132 32} down_box DOWN_BOX color 134 selection_color 134 labelfont 1
+      }
+      Fl_Check_Button Poly {
+        label Poly
+        callback {viewing->drawPolyline();
+Poly->setonly();}
+        xywh {80 360 60 20} type Radio down_box DOWN_BOX
+      }
+      Fl_Button {} {
+        label {Show Output}
+        callback {OutputWindow->show();}
+        xywh {152 390 100 32} down_box DOWN_BOX color 134 selection_color 134 labelfont 1 labelcolor 32
+      }
+      Fl_Menu_Bar {} {open
+        xywh {0 0 640 20}
+      } {
+        Submenu {} {
+          label File open
+          xywh {0 0 62 20}
+        } {
+          MenuItem {} {
+            label Exit
+            callback {OutputWindow->hide();
+Mywindow->hide();}
+            xywh {0 0 30 20} shortcut 0x40071
+          }
+        }
+        Submenu {} {
+          label Draw open
+          xywh {0 0 62 20}
+        } {
+          Submenu {} {
+            label Line open
+            xywh {0 0 62 20}
+          } {
+            MenuItem {} {
+              label Simple
+              callback {SimpleLineWindow->show();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Sample
+              callback {viewing->drawLineSample();
+Line->clear();
+Circle->clear();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Bowtie
+              callback {viewing->drawLineBowtie();
+Line->clear();
+Circle->clear();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label House
+              callback {viewing->drawLineHouse();
+Line->clear();
+Circle->clear();}
+              xywh {0 0 30 20}
+            }
+          }
+          Submenu {} {
+            label Polyline open
+            xywh {5 5 62 20}
+          } {}
+          Submenu {} {
+            label Circle open
+            xywh {5 5 62 20}
+          } {
+            MenuItem {} {
+              label Simple
+              callback {SimpleCircleWindow->show();}
+              xywh {5 5 30 20}
+            }
+            MenuItem {} {
+              label Sample
+              callback {viewing->drawCircleSample();}
+              xywh {0 0 30 20}
+            }
+          }
+        }
+        Submenu {} {
+          label Options open
+          xywh {0 0 62 20}
+        } {
+          MenuItem {} {
+            label Color
+            callback {ColorWindow->show();}
+            xywh {0 0 30 20}
+          }
+          MenuItem {} {
+            label Style
+            callback {StyleWindow->show();}
+            xywh {0 0 30 20}
+          }
+        }
+      }
+    }
+    Fl_Window OutputWindow {
+      label Output open
+      xywh {2911 49 232 392} type Single hide
+      code0 {OutputWindow->hide();}
+    } {
+      Fl_Text_Display OutputTextDisplay {
+        label {Point Output}
+        xywh {10 26 220 320}
+        code0 {viewing->textDisplay = OutputTextDisplay;}
+        code1 {OutputTextDisplay->buffer(new Fl_Text_Buffer());}
+      }
+      Fl_Button {} {
+        label {Clear Output}
+        callback {OutputTextDisplay->buffer()->text("");}
+        xywh {10 356 145 28} down_box DOWN_BOX color 134 selection_color 134 labelfont 1
+      }
+      Fl_Check_Button PrintToggle {
+        label Print
+        callback {viewing->print = PrintToggle->value();}
+        xywh {170 356 60 28} down_box DOWN_BOX
+        code0 {viewing->print = PrintToggle->value();}
+      }
+    }
+    Fl_Window SimpleLineWindow {
+      label {Simple Line} open
+      xywh {2221 315 192 272} type Single
+      code0 {SimpleLineWindow->hide();} visible
+    } {
+      Fl_Box {} {
+        label {Start Point}
+        xywh {35 10 130 32} labeltype ENGRAVED_LABEL
+      }
+      Fl_Box {} {
+        label {End Point}
+        xywh {35 120 130 32} labeltype ENGRAVED_LABEL
+      }
+      Fl_Value_Input StartX {
+        label {X :}
+        xywh {55 52 112 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {StartX->value(0);}
+      }
+      Fl_Value_Input StartY {
+        label {Y :}
+        xywh {55 86 112 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {StartY->value(0);}
+      }
+      Fl_Value_Input EndX {
+        label {X :}
+        xywh {57 162 108 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {EndX->value(0);}
+      }
+      Fl_Value_Input EndY {
+        label {Y :}
+        xywh {57 198 105 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {EndY->value(0);}
+      }
+      Fl_Button SetEndLine {
+        label Draw
+        callback {viewing->drawDialogEndingPointLine();
+viewing->dialogStartX = StartX->value();
+viewing->dialogStartY = StartY->value();
+viewing->dialogEndX = EndX->value();
+viewing->dialogEndY = EndY->value();}
+        xywh {35 232 60 20}
+      }
+      Fl_Button {} {
+        label Reset
+        callback {StartX->value(0);
+StartY->value(0);
+EndX->value(0);
+EndY->value(0);}
+        xywh {105 232 60 20}
+      }
+    }
+    Fl_Window SimpleCircleWindow {
+      label {Simple Circle} open
+      xywh {2915 173 210 240} type Single
+      code0 {SimpleCircleWindow->hide();} visible
+    } {
+      Fl_Box {} {
+        label Center
+        xywh {35 10 130 32} labeltype ENGRAVED_LABEL
+      }
+      Fl_Box {} {
+        label Radius
+        xywh {35 120 130 32} labeltype ENGRAVED_LABEL
+      }
+      Fl_Value_Input CircleX {
+        label {X :}
+        xywh {55 52 112 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {CircleX->value(0);}
+      }
+      Fl_Value_Input CircleY {
+        label {Y :}
+        xywh {55 86 112 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {CircleY->value(0);}
+      }
+      Fl_Value_Input CircleR {
+        label {R :}
+        xywh {57 162 108 24} labeltype ENGRAVED_LABEL minimum -500 maximum 500 step 1
+        code0 {CircleR->value(0);}
+      }
+      Fl_Button {} {
+        label Draw
+        callback {viewing->dialogCircleX = CircleX->value();
+viewing->dialogCircleY = CircleY->value();
+viewing->dialogCircleR = CircleR->value();
+viewing->drawDialogCircle();}
+        xywh {35 196 60 20}
+      }
+      Fl_Button {} {
+        label Reset
+        callback {CircleX->value(0);
+CircleY->value(0);
+CircleR->value(0);} selected
+        xywh {105 196 60 20}
+      }
+    }
+    Fl_Window ColorWindow {
+      label Color open
+      xywh {2933 475 224 102} type Single
+      code0 {ColorWindow->hide();} visible
+    } {
+      Fl_Choice ColorDropdown {
+        label {Color: }
+        callback {viewing->setColor(ColorDropdown->value());} open
+        xywh {56 10 82 20} down_box BORDER_BOX
+        code0 {ColorDropdown->add("White|Red|Green|Blue|Yellow|Cyan|Magenta|Custom");}
+        code1 {ColorDropdown->value(0);}
+      } {}
+      Fl_Value_Input ValueRed {
+        label {R:}
+        callback {ColorDropdown->value(7);
+viewing->colorValueRed = ValueRed->value();
+ButtonSetColor->color(FL_GREEN);
+ButtonSetColor->redraw();}
+        xywh {166 10 48 20} maximum 255 step 1 value 255
+        code0 {viewing->widgetValueRed = ValueRed;}
+        code1 {ValueRed->value(255);}
+        code2 {viewing->colorValueRed = ValueRed->value();}
+      }
+      Fl_Value_Input ValueGreen {
+        label {G:}
+        callback {ColorDropdown->value(7);
+viewing->colorValueGreen = ValueGreen->value();
+ButtonSetColor->color(FL_GREEN);
+ButtonSetColor->redraw();}
+        xywh {166 40 48 20} maximum 255 step 1 value 255
+        code0 {viewing->widgetValueGreen = ValueGreen;}
+        code1 {ValueGreen->value(255);}
+        code2 {viewing->colorValueGreen = ValueGreen->value();}
+      }
+      Fl_Value_Input ValueBlue {
+        label {B:}
+        callback {ColorDropdown->value(7);
+viewing->colorValueBlue = ValueBlue->value();
+ButtonSetColor->color(FL_GREEN);
+ButtonSetColor->redraw();}
+        xywh {166 70 48 20} maximum 255 step 1 value 255
+        code0 {viewing->widgetValueBlue = ValueBlue;}
+        code1 {ValueBlue->value(255);}
+        code2 {viewing->colorValueBlue = ValueBlue->value();}
+      }
+      Fl_Button ButtonSetColor {
+        label {Set Color}
+        callback {viewing->setColor();
+ButtonSetColor->color(FL_BACKGROUND_COLOR);
+ButtonSetColor->redraw();}
+        xywh {12 70 126 20}
+      }
+    }
+    Fl_Window StyleWindow {
+      label Style open
+      xywh {2933 657 162 70} type Single
+      code0 {StyleWindow->hide();} visible
+    } {
+      Fl_Spinner ThicknessSpinner {
+        label {Thickness:}
+        callback {viewing->updateThickness(ThicknessSpinner->value());}
+        xywh {89 10 61 20} maximum 20
+        code0 {ThicknessSpinner->value(1);}
+        code1 {viewing->updateThickness(ThicknessSpinner->value());}
+      }
+      Fl_Choice LineStyleDropdown {
+        label {Line Style:}
+        callback {viewing->setLineStyle(LineStyleDropdown->value());} open
+        xywh {80 40 70 20} down_box BORDER_BOX
+        code0 {LineStyleDropdown->add("Solid|Dashes|Dots|Mix");}
+        code1 {LineStyleDropdown->value(0);}
+        code2 {viewing->setLineStyle(LineStyleDropdown->value());}
+      } {}
+    }
+  }
+  Function {show()} {open
+  } {
+    code {Mywindow->show();} {}
+  }
+} 
