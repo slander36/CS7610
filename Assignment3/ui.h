@@ -31,10 +31,10 @@ private:
   inline void cb_Clear_i(Fl_Button*, void*);
   static void cb_Clear(Fl_Button*, void*);
 public:
-  Fl_Check_Button *Poly;
+  Fl_Check_Button *Polyline;
 private:
-  inline void cb_Poly_i(Fl_Check_Button*, void*);
-  static void cb_Poly(Fl_Check_Button*, void*);
+  inline void cb_Polyline_i(Fl_Check_Button*, void*);
+  static void cb_Polyline(Fl_Check_Button*, void*);
   inline void cb_Show_i(Fl_Button*, void*);
   static void cb_Show(Fl_Button*, void*);
   static Fl_Menu_Item menu_[];
@@ -52,10 +52,19 @@ private:
   static void cb_Simple1(Fl_Menu_*, void*);
   inline void cb_Sample1_i(Fl_Menu_*, void*);
   static void cb_Sample1(Fl_Menu_*, void*);
+  inline void cb_Polygon1_i(Fl_Menu_*, void*);
+  static void cb_Polygon1(Fl_Menu_*, void*);
+  inline void cb_Polygon2_i(Fl_Menu_*, void*);
+  static void cb_Polygon2(Fl_Menu_*, void*);
   inline void cb_Color_i(Fl_Menu_*, void*);
   static void cb_Color(Fl_Menu_*, void*);
   inline void cb_Style_i(Fl_Menu_*, void*);
   static void cb_Style(Fl_Menu_*, void*);
+public:
+  Fl_Check_Button *Polygon;
+private:
+  inline void cb_Polygon_i(Fl_Check_Button*, void*);
+  static void cb_Polygon(Fl_Check_Button*, void*);
 public:
   Fl_Window *OutputWindow;
   Fl_Text_Display *OutputTextDisplay;

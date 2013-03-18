@@ -8,7 +8,7 @@ class UserInterface {open
   } {
     Fl_Window Mywindow {
       label {FLTK Draw} open
-      xywh {2246 173 497 432} type Single color 51 visible
+      xywh {2316 184 489 424} type Single color 51 visible
     } {
       Fl_Box viewing {
         label label
@@ -32,19 +32,20 @@ Circle->setonly();}
         label {Clear Screen}
         callback {viewing->clearallvariables();
 Line->clear();
-Poly->clear();
-Circle->clear();}
+Polyline->clear();
+Circle->clear();
+Polygon->clear();}
         xywh {10 390 132 32} down_box DOWN_BOX color 134 selection_color 134 labelfont 1
       }
-      Fl_Check_Button Poly {
-        label Poly
+      Fl_Check_Button Polyline {
+        label Polyline
         callback {viewing->drawPolyline();
-Poly->setonly();}
+Polyline->setonly();}
         xywh {80 360 60 20} type Radio down_box DOWN_BOX
       }
       Fl_Button {} {
         label {Show Output}
-        callback {OutputWindow->show();}
+        callback {OutputWindow->show();} selected
         xywh {152 390 100 32} down_box DOWN_BOX color 134 selection_color 134 labelfont 1 labelcolor 32
       }
       Fl_Menu_Bar {} {open
@@ -115,6 +116,21 @@ Circle->clear();}
               xywh {0 0 30 20}
             }
           }
+          Submenu {} {
+            label Polygon open
+            xywh {0 0 62 20}
+          } {
+            MenuItem {} {
+              label Polygon1
+              callback {viewing->drawPolygon1();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon2
+              callback {viewing->drawPolygon2();}
+              xywh {0 0 30 20}
+            }
+          }
         }
         Submenu {} {
           label Options open
@@ -131,6 +147,12 @@ Circle->clear();}
             xywh {0 0 30 20}
           }
         }
+      }
+      Fl_Check_Button Polygon {
+        label Polygon
+        callback {viewing->drawPolygon();
+Polygon->setonly();}
+        xywh {220 360 60 20} type Radio down_box DOWN_BOX
       }
     }
     Fl_Window OutputWindow {
@@ -158,8 +180,8 @@ Circle->clear();}
     }
     Fl_Window SimpleLineWindow {
       label {Simple Line} open
-      xywh {2221 315 192 272} type Single
-      code0 {SimpleLineWindow->hide();} visible
+      xywh {3149 138 184 264} type Single hide
+      code0 {SimpleLineWindow->hide();}
     } {
       Fl_Box {} {
         label {Start Point}
@@ -209,8 +231,8 @@ EndY->value(0);}
     }
     Fl_Window SimpleCircleWindow {
       label {Simple Circle} open
-      xywh {2915 173 210 240} type Single
-      code0 {SimpleCircleWindow->hide();} visible
+      xywh {2919 177 202 232} type Single hide
+      code0 {SimpleCircleWindow->hide();}
     } {
       Fl_Box {} {
         label Center
@@ -247,14 +269,14 @@ viewing->drawDialogCircle();}
         label Reset
         callback {CircleX->value(0);
 CircleY->value(0);
-CircleR->value(0);} selected
+CircleR->value(0);}
         xywh {105 196 60 20}
       }
     }
     Fl_Window ColorWindow {
       label Color open
-      xywh {2933 475 224 102} type Single
-      code0 {ColorWindow->hide();} visible
+      xywh {2937 479 216 94} type Single hide
+      code0 {ColorWindow->hide();}
     } {
       Fl_Choice ColorDropdown {
         label {Color: }
@@ -306,8 +328,8 @@ ButtonSetColor->redraw();}
     }
     Fl_Window StyleWindow {
       label Style open
-      xywh {2933 657 162 70} type Single
-      code0 {StyleWindow->hide();} visible
+      xywh {2937 661 154 62} type Single hide
+      code0 {StyleWindow->hide();}
     } {
       Fl_Spinner ThicknessSpinner {
         label {Thickness:}

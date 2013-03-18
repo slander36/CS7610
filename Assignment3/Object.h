@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef _SL_OBJECT_H_
-#define _SL_OBJECT_H_
+#ifndef _SL_OBJECT_H
+#define _SL_OBJECT_H
 
 #include "declarations.h"
 #include <FL/gl.h>

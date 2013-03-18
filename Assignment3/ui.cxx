@@ -21,19 +21,20 @@ void UserInterface::cb_Circle(Fl_Check_Button* o, void* v) {
 void UserInterface::cb_Clear_i(Fl_Button*, void*) {
   viewing->clearallvariables();
 Line->clear();
-Poly->clear();
+Polyline->clear();
 Circle->clear();
+Polygon->clear();
 }
 void UserInterface::cb_Clear(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_Clear_i(o,v);
 }
 
-void UserInterface::cb_Poly_i(Fl_Check_Button*, void*) {
+void UserInterface::cb_Polyline_i(Fl_Check_Button*, void*) {
   viewing->drawPolyline();
-Poly->setonly();
+Polyline->setonly();
 }
-void UserInterface::cb_Poly(Fl_Check_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_Poly_i(o,v);
+void UserInterface::cb_Polyline(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polyline_i(o,v);
 }
 
 void UserInterface::cb_Show_i(Fl_Button*, void*) {
@@ -99,6 +100,20 @@ void UserInterface::cb_Sample1(Fl_Menu_* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_Sample1_i(o,v);
 }
 
+void UserInterface::cb_Polygon1_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon1();
+}
+void UserInterface::cb_Polygon1(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon1_i(o,v);
+}
+
+void UserInterface::cb_Polygon2_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon2();
+}
+void UserInterface::cb_Polygon2(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon2_i(o,v);
+}
+
 void UserInterface::cb_Color_i(Fl_Menu_*, void*) {
   ColorWindow->show();
 }
@@ -130,6 +145,10 @@ Fl_Menu_Item UserInterface::menu_[] = {
  {"Simple", 0,  (Fl_Callback*)UserInterface::cb_Simple1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sample", 0,  (Fl_Callback*)UserInterface::cb_Sample1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
+ {"Polygon", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon1", 0,  (Fl_Callback*)UserInterface::cb_Polygon1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon2", 0,  (Fl_Callback*)UserInterface::cb_Polygon2, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
  {"Options", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Color", 0,  (Fl_Callback*)UserInterface::cb_Color, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -137,6 +156,14 @@ Fl_Menu_Item UserInterface::menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0}
 };
+
+void UserInterface::cb_Polygon_i(Fl_Check_Button*, void*) {
+  viewing->drawPolygon();
+Polygon->setonly();
+}
+void UserInterface::cb_Polygon(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon_i(o,v);
+}
 
 void UserInterface::cb_Clear1_i(Fl_Button*, void*) {
   OutputTextDisplay->buffer()->text("");
@@ -253,7 +280,7 @@ void UserInterface::cb_LineStyleDropdown(Fl_Choice* o, void* v) {
 }
 
 UserInterface::UserInterface() {
-  { Mywindow = new Fl_Window(497, 432, "FLTK Draw");
+  { Mywindow = new Fl_Window(489, 424, "FLTK Draw");
     Mywindow->color((Fl_Color)51);
     Mywindow->user_data((void*)(this));
     { viewing = new MyWindow(8, 30, 480, 320, "label");
@@ -284,11 +311,11 @@ UserInterface::UserInterface() {
       o->labelfont(1);
       o->callback((Fl_Callback*)cb_Clear);
     } // Fl_Button* o
-    { Poly = new Fl_Check_Button(80, 360, 60, 20, "Poly");
-      Poly->type(102);
-      Poly->down_box(FL_DOWN_BOX);
-      Poly->callback((Fl_Callback*)cb_Poly);
-    } // Fl_Check_Button* Poly
+    { Polyline = new Fl_Check_Button(80, 360, 60, 20, "Polyline");
+      Polyline->type(102);
+      Polyline->down_box(FL_DOWN_BOX);
+      Polyline->callback((Fl_Callback*)cb_Polyline);
+    } // Fl_Check_Button* Polyline
     { Fl_Button* o = new Fl_Button(152, 390, 100, 32, "Show Output");
       o->down_box(FL_DOWN_BOX);
       o->color((Fl_Color)134);
@@ -300,6 +327,11 @@ UserInterface::UserInterface() {
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 640, 20);
       o->menu(menu_);
     } // Fl_Menu_Bar* o
+    { Polygon = new Fl_Check_Button(220, 360, 60, 20, "Polygon");
+      Polygon->type(102);
+      Polygon->down_box(FL_DOWN_BOX);
+      Polygon->callback((Fl_Callback*)cb_Polygon);
+    } // Fl_Check_Button* Polygon
     Mywindow->end();
   } // Fl_Window* Mywindow
   { OutputWindow = new Fl_Window(232, 392, "Output");
@@ -323,7 +355,7 @@ UserInterface::UserInterface() {
     OutputWindow->hide();
     OutputWindow->end();
   } // Fl_Window* OutputWindow
-  { SimpleLineWindow = new Fl_Window(192, 272, "Simple Line");
+  { SimpleLineWindow = new Fl_Window(184, 264, "Simple Line");
     SimpleLineWindow->user_data((void*)(this));
     { Fl_Box* o = new Fl_Box(35, 10, 130, 32, "Start Point");
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -368,7 +400,7 @@ UserInterface::UserInterface() {
     SimpleLineWindow->hide();
     SimpleLineWindow->end();
   } // Fl_Window* SimpleLineWindow
-  { SimpleCircleWindow = new Fl_Window(210, 240, "Simple Circle");
+  { SimpleCircleWindow = new Fl_Window(202, 232, "Simple Circle");
     SimpleCircleWindow->user_data((void*)(this));
     { Fl_Box* o = new Fl_Box(35, 10, 130, 32, "Center");
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -406,7 +438,7 @@ UserInterface::UserInterface() {
     SimpleCircleWindow->hide();
     SimpleCircleWindow->end();
   } // Fl_Window* SimpleCircleWindow
-  { ColorWindow = new Fl_Window(224, 102, "Color");
+  { ColorWindow = new Fl_Window(216, 94, "Color");
     ColorWindow->user_data((void*)(this));
     { ColorDropdown = new Fl_Choice(56, 10, 82, 20, "Color: ");
       ColorDropdown->down_box(FL_BORDER_BOX);
@@ -447,7 +479,7 @@ UserInterface::UserInterface() {
     ColorWindow->hide();
     ColorWindow->end();
   } // Fl_Window* ColorWindow
-  { StyleWindow = new Fl_Window(162, 70, "Style");
+  { StyleWindow = new Fl_Window(154, 62, "Style");
     StyleWindow->user_data((void*)(this));
     { ThicknessSpinner = new Fl_Spinner(89, 10, 61, 20, "Thickness:");
       ThicknessSpinner->maximum(20);

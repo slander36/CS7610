@@ -18,7 +18,7 @@
 #pragma once
 #ifndef MY_WINDOW_H
 #define MY_WINDOW_H
-#include "DrawingAlgorithm.h"
+//#include "DrawingAlgorithm.h"
 #include <FL/Fl_Gl_Window.h>
 #include <FL/Fl_Text_Display.h>
 #include <FL/Fl_Value_Input.h>
@@ -29,6 +29,7 @@
 #include "Line.h"
 #include "Circle.h"
 #include "PolyLine.h"
+#include "Polygon.h"
 
 class MyWindow : public Fl_Gl_Window
 {
@@ -39,7 +40,9 @@ class MyWindow : public Fl_Gl_Window
 
 		// Polylines/Polygons
 		PolyLine *polyline;
+		sldraw::Polygon *polygon;
 		Line *polylineLine;
+		Line *polygonLine;
 
 		// Circles
 		Circle *currentCircle;
@@ -76,6 +79,20 @@ class MyWindow : public Fl_Gl_Window
 	 Enables interactive polyline drawing
 	*/
 	void drawPolyline();
+
+	/*
+	 * Polygon
+	 */
+	void drawPolygon();
+	void drawPolygon1();
+	void drawPolygon2();
+	void drawPolygon3();
+	void drawPolygon4();
+	void drawPolygon5();
+	void drawPolygon6();
+	void drawPolygon7();
+	void drawPolygon8();
+	void drawPolygon9();
 
 	/*
 	 * Set Line Color
@@ -144,6 +161,15 @@ class MyWindow : public Fl_Gl_Window
 	static const int LINEBOWTIE;
 	static const int LINEHOUSE;
 	static const int CIRCLESAMPLE;
+	static const int POLYGON1;
+	static const int POLYGON2;
+	static const int POLYGON3;
+	static const int POLYGON4;
+	static const int POLYGON5;
+	static const int POLYGON6;
+	static const int POLYGON7;
+	static const int POLYGON8;
+	static const int POLYGON9;
 	
 	//screen size
 	int swidth;

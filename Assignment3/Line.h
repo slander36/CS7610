@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef _SL_LINE_H_
-#define _SL_LINE_H_
+#ifndef _SL_LINE_H
+#define _SL_LINE_H
 
 #include "Object.h"
 
@@ -94,6 +94,7 @@ public:
 
 	/* Draw Method */
 	void draw();
+	void draw(Colors::rgba rgbas, Colors::rgba rgbae);
 
 };
 

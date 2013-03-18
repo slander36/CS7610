@@ -32,8 +32,8 @@ const int MyWindow::CLEAR = 0;
 const int MyWindow::LINE = 1;
 const int MyWindow::CIRCLE = 2;
 const int MyWindow::ELLIPSE = 3;
-const int MyWindow::POLYGON = 4;
-const int MyWindow::POLYLINE = 5;
+const int MyWindow::POLYLINE = 4;
+const int MyWindow::POLYGON = 5;
 const int MyWindow::RASTERIZE = 6;
 const int MyWindow::FILLCIRCLE = 7;
 const int MyWindow::SEMICIRCLE = 8;
@@ -47,6 +47,15 @@ const int MyWindow::LINESAMPLE = 15;
 const int MyWindow::LINEBOWTIE = 16;
 const int MyWindow::LINEHOUSE = 17;
 const int MyWindow::CIRCLESAMPLE = 18;
+const int MyWindow::POLYGON1 = 19;
+const int MyWindow::POLYGON2 = 20;
+const int MyWindow::POLYGON3 = 21;
+const int MyWindow::POLYGON4 = 22;
+const int MyWindow::POLYGON5 = 23;
+const int MyWindow::POLYGON6 = 24;
+const int MyWindow::POLYGON7 = 25;
+const int MyWindow::POLYGON8 = 26;
+const int MyWindow::POLYGON9 = 27;
 
 //---------------------------MyWindow::MyWindow--------------------------------
 MyWindow::MyWindow(int x,int y,int width, int height, char* title) : Fl_Gl_Window(x,y,width, height, title) {
@@ -92,6 +101,56 @@ void MyWindow::drawCircle() {
 void MyWindow::drawPolyline() {
 	shapeMode = MyWindow::POLYLINE;
 	clickCounter = 0;
+}
+
+void MyWindow::drawPolygon() {
+	shapeMode = MyWindow::POLYGON;
+	clickCounter = 0;
+}
+
+void MyWindow::drawPolygon1() {
+	shapeMode = MyWindow::POLYGON1;
+	redraw();
+}
+
+void MyWindow::drawPolygon2() {
+	shapeMode = MyWindow::POLYGON2;
+	redraw();
+}
+
+void MyWindow::drawPolygon3() {
+	shapeMode = MyWindow::POLYGON3;
+	redraw();
+}
+
+void MyWindow::drawPolygon4() {
+	shapeMode = MyWindow::POLYGON4;
+	redraw();
+}
+
+void MyWindow::drawPolygon5() {
+	shapeMode = MyWindow::POLYGON5;
+	redraw();
+}
+
+void MyWindow::drawPolygon6() {
+	shapeMode = MyWindow::POLYGON6;
+	redraw();
+}
+
+void MyWindow::drawPolygon7() {
+	shapeMode = MyWindow::POLYGON7;
+	redraw();
+}
+
+void MyWindow::drawPolygon8() {
+	shapeMode = MyWindow::POLYGON8;
+	redraw();
+}
+
+void MyWindow::drawPolygon9() {
+	shapeMode = MyWindow::POLYGON9;
+	redraw();
 }
 
 /*
@@ -256,6 +315,15 @@ void MyWindow::draw() {
 	}
 	//Switch between different drawing mode.
 	int r;
+	float polygon1[][2] = { {0, 30}, {10, 10}, {50, 10}, {80, 40}, {100, 40}, {110, 50}, {110, 115}, {130, 120}, {130, 130}, {100, 135}, {130, 140}, {130, 150}, {110, 160}, {80, 160}, {70, 150}, {70, 130}, {80, 120}, {70, 110}, {60, 60}, {40, 30}, {30, 20}, {10, 20} };
+	float polygon2[][2] = { {80, 100}, {90, 90}, {100, 90}, {130, 80}, {140, 90}, {160, 90}, {150, 95}, {160, 100}, {150, 100}, {155, 110}, {145, 100}, {140, 110}, {140, 100}, {130, 90}, {110, 110}, {90, 110} };
+	float polygon3[][2] = { {80, 60}, {80, 40}, {90, 30}, {90, 20}, {80, 10}, {80, 5}, {90, 0}, {120, 0}, {100, 10}, {100, 20}, {120, 40}, {110, 60}, {100, 70}, {90, 70} };
+	float polygon4[][2] = { {87.5, 150}, {90, 147}, {96, 147}, {101, 150}, {96, 152.5}, {90, 152.5} };
+	float polygon5[][2] = { {125.0,275.0}, {375.0,275.0}, { 150.0,  150.0}, {250.0, 350.0}, {350.0,  150.0} };
+	float polygon6[][2] = { {9*4,5*4}, {14*4,5*4}, {14*4,11*4}, {22*4,11*4}, {27*4,16*4}, {20*4,25*4}, {13*4,25*4}, {13*4,20*4}, {8*4,20*4}, {8*4,16*4}, {4*4,16*4}, {4*4,9*4} };
+	float polygon7[][2] = { {2,3}, {7,1}, {13,5}, {13,11}, {7,7}, {2,9} };
+	float polygon8[][2] = { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10},{25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20},{15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
+	float polygon9[][2] = { {0, 0}, {15, 20}, {30, 0}, {45, 20}, {60, 0}, {75, 20}, {90, 0}, {90, 30}, {70, 30}, {60, 15},{50, 30}, {40, 30}, {30, 15}, {20, 30}, {0, 30}};
 	switch(shapeMode) {
 		case MyWindow::LINE:
 			if(clickCounter == 0) {
@@ -355,6 +423,36 @@ void MyWindow::draw() {
 				polyline->close();
 				clickCounter = 0;
 				delete polyline;
+			} else {
+				//Draw first point
+				glBegin(GL_POINTS);
+				glVertex2i(startX, startY);
+				glEnd();
+				clickCounter = 1;
+			}
+			break;
+            
+		case MyWindow::POLYGON:
+			if(clickCounter == 1) {
+				// Create a new line and add it to the polyline
+				polygonLine = new Line(startX, startY, finishX, finishY, lineThickness, lineStyle, textDisplay, print, rgba);
+				polygon->add(polygonLine);
+			} else if(clickCounter == 2) {
+				// Draw the final line and reset
+				// Done with MIDDLE MOUSE
+				// DO NOTHING - NOT A POLYLINE
+				/*
+				polygonLine = new Line(startX, startY, finishX, finishY, lineThickness, lineStyle, textDisplay, print, rgba);
+				polygon->add(polygonLine);
+				clickCounter = 0;
+				delete polygon;
+				*/
+			} else if(clickCounter == 3) {
+				// Close for polygon
+				// Done with RIGHT MOUSE
+				polygon->close();
+				clickCounter = 0;
+				delete polygon;
 			} else {
 				//Draw first point
 				glBegin(GL_POINTS);
@@ -479,6 +577,96 @@ void MyWindow::draw() {
 			currentCircle = new Circle(6, -3, 12, lineThickness, lineStyle, textDisplay, print, rgba);
 			currentCircle->draw();
 			delete currentCircle;
+			break;
+
+		case MyWindow::POLYGON1:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			for(int i = 0 ; i < 21 ; i++) {
+				currentLine = new Line(polygon1[i][0],polygon1[i][1],polygon1[i+1][0],polygon1[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON2:
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,0.0,1.0));
+			for(int i = 0 ; i < 15 ; i++) {
+				currentLine = new Line(polygon2[i][0],polygon2[i][1],polygon2[i+1][0],polygon2[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON3:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.67,0.31,0.0,1.0));
+			for(int i = 0 ; i < 13 ; i++) {
+				currentLine = new Line(polygon3[i][0],polygon3[i][1],polygon3[i+1][0],polygon3[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON4:
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,0.0,0.0,1.0));
+			for(int i = 0 ; i < 5 ; i++) {
+				currentLine = new Line(polygon4[i][0],polygon4[i][1],polygon4[i+1][0],polygon4[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON5:
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,1.0,1.0));
+			for(int i = 0 ; i < 4 ; i++) {
+				currentLine = new Line(polygon5[i][0],polygon5[i][1],polygon5[i+1][0],polygon5[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON6:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			for(int i = 0 ; i < 11 ; i++) {
+				currentLine = new Line(polygon6[i][0],polygon6[i][1],polygon6[i+1][0],polygon6[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON7:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			for(int i = 0 ; i < 5 ; i++) {
+				currentLine = new Line(polygon7[i][0],polygon7[i][1],polygon7[i+1][0],polygon7[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON8:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			for(int i = 0 ; i < 17 ; i++) {
+				currentLine = new Line(polygon8[i][0],polygon8[i][1],polygon8[i+1][0],polygon8[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
+			break;
+
+		case MyWindow::POLYGON9:
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			for(int i = 0 ; i < 14 ; i++) {
+				currentLine = new Line(polygon9[i][0],polygon9[i][1],polygon9[i+1][0],polygon9[i+1][1]);
+				polygon->add(currentLine);
+			}
+			polygon->close();
+			polygon->draw();
 			break;
 	}
 }

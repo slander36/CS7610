@@ -7,8 +7,8 @@
  */
 
 #pragma once
-#ifndef DECLARATIONS_H
-#define DECLARATIONS_H
+#ifndef _SL_DECLARATIONS_H
+#define _SL_DECLARATIONS_H
 
 #include <cmath>
 #include <FL/Fl_Text_Display.h>
