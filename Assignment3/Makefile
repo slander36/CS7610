@@ -19,8 +19,8 @@ LINK     = $(CXX)
 
 TARGET = linedraw_test
 
-OBJS = main.o ui.o MyWindow.o DrawingAlgorithm.o Object.o Line.o Shape.o PolyLine.o Circle.o
-SRCS = main.cpp ui.cpp MyWindow.cpp DrawingAlgorithm.cpp Object.cpp Line.cpp Shape.cpp PolyLine.cpp Circle.cpp
+OBJS = main.o ui.o MyWindow.o DrawingAlgorithm.o Object.o Line.o Shape.o PolyLine.o Circle.o Polygon.o
+SRCS = main.cpp ui.cpp MyWindow.cpp DrawingAlgorithm.cpp Object.cpp Line.cpp Shape.cpp PolyLine.cpp Circle.cpp Polygon.cpp
 
 .SUFFIXES: .o .cxx
 %.o: %.cxx
@@ -45,6 +45,7 @@ Line.o: Line.cpp Line.h
 Shape.o: Shape.cpp Shape.h
 PolyLine.o: PolyLine.cpp PolyLine.h
 Circle.o: Circle.cpp Circle.h
+Polygon.o: Polygon.cpp Polygon.h
 
 clean: $(TARGET) $(OBJS)
 	rm -f *.o 2> /dev/null

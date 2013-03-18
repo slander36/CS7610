@@ -16,8 +16,8 @@ public:
 	PolyLine(void);
 	~PolyLine(void);
 
-	virtual void add(Line* line);
-	virtual void close();
+	void add(Line* line);
+	void close();
 	virtual void draw();
 
 };

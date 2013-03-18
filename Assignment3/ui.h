@@ -56,6 +56,20 @@ private:
   static void cb_Polygon1(Fl_Menu_*, void*);
   inline void cb_Polygon2_i(Fl_Menu_*, void*);
   static void cb_Polygon2(Fl_Menu_*, void*);
+  inline void cb_Polygon3_i(Fl_Menu_*, void*);
+  static void cb_Polygon3(Fl_Menu_*, void*);
+  inline void cb_Polygon4_i(Fl_Menu_*, void*);
+  static void cb_Polygon4(Fl_Menu_*, void*);
+  inline void cb_Polygon5_i(Fl_Menu_*, void*);
+  static void cb_Polygon5(Fl_Menu_*, void*);
+  inline void cb_Polygon6_i(Fl_Menu_*, void*);
+  static void cb_Polygon6(Fl_Menu_*, void*);
+  inline void cb_Polygon7_i(Fl_Menu_*, void*);
+  static void cb_Polygon7(Fl_Menu_*, void*);
+  inline void cb_Polygon8_i(Fl_Menu_*, void*);
+  static void cb_Polygon8(Fl_Menu_*, void*);
+  inline void cb_Polygon9_i(Fl_Menu_*, void*);
+  static void cb_Polygon9(Fl_Menu_*, void*);
   inline void cb_Color_i(Fl_Menu_*, void*);
   static void cb_Color(Fl_Menu_*, void*);
   inline void cb_Style_i(Fl_Menu_*, void*);
@@ -76,6 +90,16 @@ public:
 private:
   inline void cb_PrintToggle_i(Fl_Check_Button*, void*);
   static void cb_PrintToggle(Fl_Check_Button*, void*);
+public:
+  Fl_Check_Button *PrintSETToggle;
+private:
+  inline void cb_PrintSETToggle_i(Fl_Check_Button*, void*);
+  static void cb_PrintSETToggle(Fl_Check_Button*, void*);
+public:
+  Fl_Check_Button *PrintAETToggle;
+private:
+  inline void cb_PrintAETToggle_i(Fl_Check_Button*, void*);
+  static void cb_PrintAETToggle(Fl_Check_Button*, void*);
 public:
   Fl_Window *SimpleLineWindow;
   Fl_Value_Input *StartX;

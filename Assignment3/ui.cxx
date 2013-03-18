@@ -114,6 +114,55 @@ void UserInterface::cb_Polygon2(Fl_Menu_* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_Polygon2_i(o,v);
 }
 
+void UserInterface::cb_Polygon3_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon3();
+}
+void UserInterface::cb_Polygon3(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon3_i(o,v);
+}
+
+void UserInterface::cb_Polygon4_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon4();
+}
+void UserInterface::cb_Polygon4(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon4_i(o,v);
+}
+
+void UserInterface::cb_Polygon5_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon5();
+}
+void UserInterface::cb_Polygon5(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon5_i(o,v);
+}
+
+void UserInterface::cb_Polygon6_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon6();
+}
+void UserInterface::cb_Polygon6(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon6_i(o,v);
+}
+
+void UserInterface::cb_Polygon7_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon7();
+}
+void UserInterface::cb_Polygon7(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon7_i(o,v);
+}
+
+void UserInterface::cb_Polygon8_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon8();
+}
+void UserInterface::cb_Polygon8(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon8_i(o,v);
+}
+
+void UserInterface::cb_Polygon9_i(Fl_Menu_*, void*) {
+  viewing->drawPolygon9();
+}
+void UserInterface::cb_Polygon9(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Polygon9_i(o,v);
+}
+
 void UserInterface::cb_Color_i(Fl_Menu_*, void*) {
   ColorWindow->show();
 }
@@ -148,6 +197,13 @@ Fl_Menu_Item UserInterface::menu_[] = {
  {"Polygon", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Polygon1", 0,  (Fl_Callback*)UserInterface::cb_Polygon1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Polygon2", 0,  (Fl_Callback*)UserInterface::cb_Polygon2, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon3", 0,  (Fl_Callback*)UserInterface::cb_Polygon3, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon4", 0,  (Fl_Callback*)UserInterface::cb_Polygon4, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon5", 0,  (Fl_Callback*)UserInterface::cb_Polygon5, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon6", 0,  (Fl_Callback*)UserInterface::cb_Polygon6, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon7", 0,  (Fl_Callback*)UserInterface::cb_Polygon7, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon8", 0,  (Fl_Callback*)UserInterface::cb_Polygon8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Polygon9", 0,  (Fl_Callback*)UserInterface::cb_Polygon9, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
  {"Options", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -177,6 +233,20 @@ void UserInterface::cb_PrintToggle_i(Fl_Check_Button*, void*) {
 }
 void UserInterface::cb_PrintToggle(Fl_Check_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_PrintToggle_i(o,v);
+}
+
+void UserInterface::cb_PrintSETToggle_i(Fl_Check_Button*, void*) {
+  viewing->printSET = PrintSETToggle->value();
+}
+void UserInterface::cb_PrintSETToggle(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_PrintSETToggle_i(o,v);
+}
+
+void UserInterface::cb_PrintAETToggle_i(Fl_Check_Button*, void*) {
+  viewing->printAET = PrintAETToggle->value();
+}
+void UserInterface::cb_PrintAETToggle(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_PrintAETToggle_i(o,v);
 }
 
 void UserInterface::cb_SetEndLine_i(Fl_Button*, void*) {
@@ -280,7 +350,7 @@ void UserInterface::cb_LineStyleDropdown(Fl_Choice* o, void* v) {
 }
 
 UserInterface::UserInterface() {
-  { Mywindow = new Fl_Window(489, 424, "FLTK Draw");
+  { Mywindow = new Fl_Window(492, 422, "FLTK Draw");
     Mywindow->color((Fl_Color)51);
     Mywindow->user_data((void*)(this));
     { viewing = new MyWindow(8, 30, 480, 320, "label");
@@ -334,7 +404,7 @@ UserInterface::UserInterface() {
     } // Fl_Check_Button* Polygon
     Mywindow->end();
   } // Fl_Window* Mywindow
-  { OutputWindow = new Fl_Window(232, 392, "Output");
+  { OutputWindow = new Fl_Window(239, 452, "Output");
     OutputWindow->user_data((void*)(this));
     { OutputTextDisplay = new Fl_Text_Display(10, 26, 220, 320, "Point Output");
       viewing->textDisplay = OutputTextDisplay;
@@ -352,6 +422,18 @@ UserInterface::UserInterface() {
       PrintToggle->callback((Fl_Callback*)cb_PrintToggle);
       viewing->print = PrintToggle->value();
     } // Fl_Check_Button* PrintToggle
+    { new Fl_Box(10, 394, 145, 16, "Polygon Only");
+    } // Fl_Box* o
+    { PrintSETToggle = new Fl_Check_Button(10, 420, 60, 28, "Print SET");
+      PrintSETToggle->down_box(FL_DOWN_BOX);
+      PrintSETToggle->callback((Fl_Callback*)cb_PrintSETToggle);
+      viewing->printSET = PrintSETToggle->value();
+    } // Fl_Check_Button* PrintSETToggle
+    { PrintAETToggle = new Fl_Check_Button(95, 420, 60, 28, "Print AET");
+      PrintAETToggle->down_box(FL_DOWN_BOX);
+      PrintAETToggle->callback((Fl_Callback*)cb_PrintAETToggle);
+      viewing->printAET = PrintAETToggle->value();
+    } // Fl_Check_Button* PrintAETToggle
     OutputWindow->hide();
     OutputWindow->end();
   } // Fl_Window* OutputWindow

@@ -451,6 +451,7 @@ void MyWindow::draw() {
 				// Close for polygon
 				// Done with RIGHT MOUSE
 				polygon->close();
+				polygon->draw();
 				clickCounter = 0;
 				delete polygon;
 			} else {
@@ -580,7 +581,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON1:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0), printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 21 ; i++) {
 				currentLine = new Line(polygon1[i][0],polygon1[i][1],polygon1[i+1][0],polygon1[i+1][1]);
 				polygon->add(currentLine);
@@ -590,7 +591,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON2:
-			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,0.0,1.0));
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,0.0,1.0), printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 15 ; i++) {
 				currentLine = new Line(polygon2[i][0],polygon2[i][1],polygon2[i+1][0],polygon2[i+1][1]);
 				polygon->add(currentLine);
@@ -600,7 +601,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON3:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.67,0.31,0.0,1.0));
+			polygon = new sldraw::Polygon(new Colors::rgba(0.67,0.31,0.0,1.0), printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 13 ; i++) {
 				currentLine = new Line(polygon3[i][0],polygon3[i][1],polygon3[i+1][0],polygon3[i+1][1]);
 				polygon->add(currentLine);
@@ -610,7 +611,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON4:
-			polygon = new sldraw::Polygon(new Colors::rgba(1.0,0.0,0.0,1.0));
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,0.0,0.0,1.0), printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 5 ; i++) {
 				currentLine = new Line(polygon4[i][0],polygon4[i][1],polygon4[i+1][0],polygon4[i+1][1]);
 				polygon->add(currentLine);
@@ -620,7 +621,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON5:
-			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,1.0,1.0));
+			polygon = new sldraw::Polygon(new Colors::rgba(1.0,1.0,1.0,1.0), printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 4 ; i++) {
 				currentLine = new Line(polygon5[i][0],polygon5[i][1],polygon5[i+1][0],polygon5[i+1][1]);
 				polygon->add(currentLine);
@@ -630,7 +631,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON6:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			polygon = new sldraw::Polygon(true, printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 11 ; i++) {
 				currentLine = new Line(polygon6[i][0],polygon6[i][1],polygon6[i+1][0],polygon6[i+1][1]);
 				polygon->add(currentLine);
@@ -640,7 +641,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON7:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			polygon = new sldraw::Polygon(true, printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 5 ; i++) {
 				currentLine = new Line(polygon7[i][0],polygon7[i][1],polygon7[i+1][0],polygon7[i+1][1]);
 				polygon->add(currentLine);
@@ -650,7 +651,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON8:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			polygon = new sldraw::Polygon(true, printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 17 ; i++) {
 				currentLine = new Line(polygon8[i][0],polygon8[i][1],polygon8[i+1][0],polygon8[i+1][1]);
 				polygon->add(currentLine);
@@ -660,7 +661,7 @@ void MyWindow::draw() {
 			break;
 
 		case MyWindow::POLYGON9:
-			polygon = new sldraw::Polygon(new Colors::rgba(0.0,0.5,0.0,1.0));
+			polygon = new sldraw::Polygon(true, printSET, printAET, textDisplay);
 			for(int i = 0 ; i < 14 ; i++) {
 				currentLine = new Line(polygon9[i][0],polygon9[i][1],polygon9[i+1][0],polygon9[i+1][1]);
 				polygon->add(currentLine);
@@ -724,6 +725,22 @@ int MyWindow::handle(int event) {
 							}
 							redraw();
 							return 1;
+                    
+						case MyWindow::POLYGON:
+							if(clickCounter == 0) {
+								polygon = new sldraw::Polygon(true, printSET, printAET, textDisplay);
+								finishX = Fl::event_x() - swidth/2;		//Get the X mouse position
+								finishY = sheight/2 - Fl::event_y();		//Get the Y mouse position
+								startX = finishX;
+								startY = finishY;
+							} else {
+								startX = finishX;
+								startY = finishY;
+								finishX = Fl::event_x() - swidth/2;		//Get end point of line X coord
+								finishY = sheight/2 - Fl::event_y();	//Get end point of line Y coord
+							}
+							redraw();
+							return 1;
 					}
 				break;
 
@@ -743,6 +760,10 @@ int MyWindow::handle(int event) {
 				case FL_RIGHT_MOUSE:
 					switch(shapeMode) {
 					case MyWindow::POLYLINE:
+						clickCounter = 3;
+						redraw();
+						return 1;
+					case MyWindow::POLYGON:
 						clickCounter = 3;
 						redraw();
 						return 1;

@@ -190,6 +190,8 @@ class MyWindow : public Fl_Gl_Window
 	//print variables
 	Fl_Text_Display * textDisplay;
 	bool print;
+	bool printSET;
+	bool printAET;
 	
 	//Initialization
 	int firsttime;

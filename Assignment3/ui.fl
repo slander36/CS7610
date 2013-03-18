@@ -8,7 +8,7 @@ class UserInterface {open
   } {
     Fl_Window Mywindow {
       label {FLTK Draw} open
-      xywh {2316 184 489 424} type Single color 51 visible
+      xywh {2258 205 492 422} type Single color 51 visible
     } {
       Fl_Box viewing {
         label label
@@ -45,7 +45,7 @@ Polyline->setonly();}
       }
       Fl_Button {} {
         label {Show Output}
-        callback {OutputWindow->show();} selected
+        callback {OutputWindow->show();}
         xywh {152 390 100 32} down_box DOWN_BOX color 134 selection_color 134 labelfont 1 labelcolor 32
       }
       Fl_Menu_Bar {} {open
@@ -130,6 +130,41 @@ Circle->clear();}
               callback {viewing->drawPolygon2();}
               xywh {0 0 30 20}
             }
+            MenuItem {} {
+              label Polygon3
+              callback {viewing->drawPolygon3();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon4
+              callback {viewing->drawPolygon4();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon5
+              callback {viewing->drawPolygon5();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon6
+              callback {viewing->drawPolygon6();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon7
+              callback {viewing->drawPolygon7();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon8
+              callback {viewing->drawPolygon8();}
+              xywh {0 0 30 20}
+            }
+            MenuItem {} {
+              label Polygon9
+              callback {viewing->drawPolygon9();}
+              xywh {0 0 30 20}
+            }
           }
         }
         Submenu {} {
@@ -157,8 +192,8 @@ Polygon->setonly();}
     }
     Fl_Window OutputWindow {
       label Output open
-      xywh {2911 49 232 392} type Single hide
-      code0 {OutputWindow->hide();}
+      xywh {2919 106 239 452} type Single
+      code0 {OutputWindow->hide();} visible
     } {
       Fl_Text_Display OutputTextDisplay {
         label {Point Output}
@@ -176,6 +211,22 @@ Polygon->setonly();}
         callback {viewing->print = PrintToggle->value();}
         xywh {170 356 60 28} down_box DOWN_BOX
         code0 {viewing->print = PrintToggle->value();}
+      }
+      Fl_Box {} {
+        label {Polygon Only}
+        xywh {10 394 145 16}
+      }
+      Fl_Check_Button PrintSETToggle {
+        label {Print SET}
+        callback {viewing->printSET = PrintSETToggle->value();}
+        xywh {10 420 60 28} down_box DOWN_BOX
+        code0 {viewing->printSET = PrintSETToggle->value();}
+      }
+      Fl_Check_Button PrintAETToggle {
+        label {Print AET}
+        callback {viewing->printAET = PrintAETToggle->value();} selected
+        xywh {95 420 60 28} down_box DOWN_BOX
+        code0 {viewing->printAET = PrintAETToggle->value();}
       }
     }
     Fl_Window SimpleLineWindow {
